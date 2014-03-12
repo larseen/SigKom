@@ -4,7 +4,7 @@ function main_part2(ToneGeneratedPart1)
     Fs = 8000; % samplingsfrekvensen
     
     
-    %% Fjerner pause delen i signalet
+    %% Deler opp input signalet i et eget array, samt fjerner pause delen i signalet
     
     toneLenght = Fs*0.2; %Lengden av en tone er samplefrekvens * tid
     pauseLenght = Fs*0.05; %Lengden av pausen er samplefrekvens * tid
@@ -36,10 +36,9 @@ function main_part2(ToneGeneratedPart1)
     xlabel('Frekvens');
     ylabel('|H(w)|');
     
-    %% Deler opp signalet til hvert enkelt tall og Dekoder input signalet ved bruk av Båndpassfilterene tidligere laget
+    %% Dekoder input signalet ved bruk av Båndpassfilterene tid
     
     for k = 1:(length(toFilter)/(Fs*0.2))
-        disp( toFilter((k-1)*(Fs*0.2)+1:k*(Fs*0.2)))
-        disp(' PAUSE PAUSE PASUE SPASUE PSAIS ')
+        disp( parts((k-1)*(Fs*0.2)+1:k*(Fs*0.2)))
     end
 end
