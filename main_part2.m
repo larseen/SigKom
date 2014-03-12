@@ -1,0 +1,38 @@
+function main_part2(ToneGeneratedPart1)
+    %% Variabler som brukes gjennom hele programmet
+    
+    Fs = 8000; % samplingsfrekvensen
+    
+    
+    %% Deler opp input signalet i et eget array, samt fjerner pause delen i signalet
+    
+    toneLenght = Fs*0.2; %Lengden av en tone er samplefrekvens * tid
+    pauseLenght = Fs*0.05; %Lengden av pausen er samplefrekvens * tid
+    numbersToFilter = round(length(ToneGeneratedPart1)/(toneLenght + pauseLenght)); %Finner ut hvor mange nummer signalet består av
+    toFilter = [];
+    start = 1;
+    for n = 1:numbersToFilter
+        toFilter = [toFilter (ToneGeneratedPart1(start:start + toneLenght - 1))];
+        start = start + toneLenght + pauseLenght;
+    end
+    
+    %% Lager Båndpassfiltrene som blir brukt til å identifisere tallene
+    
+    Frekvenser = [697 770 852 941 1209 1336 1477]; % De forskjellige frekvensene i bruk i DTMF
+    L = 300; % Bredden på båndet til båndpassfilteret
+    n = 0:L-1; 
+       
+    for i = 1:length(Frekvenser)
+        f0 = Frekvenser(i)/Fs; %Digital frekvens
+        w0 = f0 * 2 * pi; %Vinkelfrekvens
+        bk = (2 * cos(w0 * n)/L); % Amplitude
+           
+        filters  = [filters; bk];
+        [h, w] = freqz(bk, 1, L);
+        plot((w * Fs / (2 * pi)), abs(h));
+        hold on
+    end
+    title('Filter');
+    xlabel('Frekvens');
+    ylabel('|H(w)|');
+end
