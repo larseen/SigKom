@@ -1,8 +1,8 @@
-function main_part2(ToneGeneratedPart1)
+function decodedNumber = main_part2(ToneGeneratedPart1)
     %% Variabler som brukes gjennom hele programmet
     
     Fs = 8000; % samplingsfrekvensen
-    
+    decodedNumber = []; % Telefonnummeret som vil bli returnert
     
     %% Fjerner pause delen i signalet
     
@@ -38,8 +38,53 @@ function main_part2(ToneGeneratedPart1)
     
     %% Deler opp signalet til hvert enkelt tall og Dekoder input signalet ved bruk av Båndpassfilterene tidligere laget
     
-    for k = 1:(length(toFilter)/(Fs*0.2))
-        disp( toFilter((k-1)*(Fs*0.2)+1:k*(Fs*0.2)))
-        disp(' PAUSE PAUSE PASUE SPASUE PSAIS ')
+    for k = 1:numbersToFilter
+        NumberToFilter = toFilter((k-1)*(Fs*0.2)+1:k*(Fs*0.2));
+        threshold = 0.85;
+        % Siden filteret ikke er perfekt, setter vi grensen på 0.85.
+        % Hvis vi får et treff høyere enn 0.85 så antar vi derfor at
+        % frekvensen finnes.
+        temp = []; %Liste for å lagre frekvensene vi finner.
+        for n=1:7
+            y = filter(filters(n, 1:L), 1, NumberToFilter); %Filtrerer vektoren part gjennom filteret
+            if(max(y) > threshold) % Hvis amplituden på signalet er høyere enn thresholdet, så registreres det.
+                temp = [temp n]; % Legger til frekvenstallet i listen
+            end
+        end
+        frequencies = [Frekvenser(temp(1)); Frekvenser(temp(2))]; %Henter ut de to dekodede frekvensene fra parten
+    
+    
+        %% Summerer frekvensene og finner ut hvilke sum som hører til hvilket tall
+        frekvens1 = frequencies(1); % Henter ut den første frekvensen
+        frekvens2 = frequencies(2); % Henter ut den andre frekvensen
+        sum = frekvens1 + frekvens2; % Summerer frekvensene
+       
+        %Finner ut hvilken sum som tilhører hvilket tall
+        switch sum
+            case 2388
+                decodedNumber = [decodedNumber '1'];
+            case 2277
+                decodedNumber = [decodedNumber '2'];
+            case 2150
+                decodedNumber = [decodedNumber '3'];
+            case 2299
+                decodedNumber = [decodedNumber '4'];
+            case 2188
+                decodedNumber = [decodedNumber '5'];
+            case 2061
+                decodedNumber = [decodedNumber '6'];
+            case 2217
+                decodedNumber = [decodedNumber '7'];
+            case 2106
+                decodedNumber = [decodedNumber '8'];
+            case 1979
+                decodedNumber = [decodedNumber '9'];
+            case 2144
+                decodedNumber = [decodedNumber '2'];
+            case 2033
+                decodedNumber = [decodedNumber '*'];
+            case 1906
+                decodedNumber = [decodedNumber '#'];
+        end
     end
 end
