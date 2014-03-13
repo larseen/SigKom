@@ -26,7 +26,6 @@ function decodedNumber = main_part2(ToneGeneratedPart1)
         f0 = Frekvenser(i)/Fs; %Digital frekvens
         w0 = f0 * 2 * pi; %Vinkelfrekvens
         bk = (2 * cos(w0 * n)/L); % Amplitude
-           
         filters  = [filters; bk];
         [h, w] = freqz(bk, 1, L);
         plot((w * Fs / (2 * pi)), abs(h));
@@ -40,7 +39,7 @@ function decodedNumber = main_part2(ToneGeneratedPart1)
     
     for k = 1:(length(toFilter)/(Fs*0.2))
         NumberToFilter = toFilter((k-1)*(Fs*0.2)+1:k*(Fs*0.2));
-        threshold = 0.5;
+        threshold = 0.8;
         % Siden filteret ikke er perfekt, setter vi grensen på 0.85.
         % Hvis vi får et treff høyere enn 0.85 så antar vi derfor at
         % frekvensen finnes.
@@ -51,11 +50,11 @@ function decodedNumber = main_part2(ToneGeneratedPart1)
                 temp = [temp n]; % Legger til frekvenstallet i listen
             end
         end
-        sum = Frekvenser(temp(1)) + Frekvenser(temp(2)); %Henter ut de to dekodede frekvensene fra parten
+        
     
     
         %% Summerer frekvensene og finner ut hvilke sum som hører til hvilket tall
-     Summerer frekvensene
+        sum = Frekvenser(temp(1)) + Frekvenser(temp(2)); %Henter ut de to dekodede frekvensene fra parten og Summerer de to frekvensene
         %Finner ut hvilken sum som tilhører hvilket tall
         switch sum
             case 1906
