@@ -12,7 +12,7 @@ if userInput=='y';
             case '1'
                 returnArray = [returnArray (sin(2*pi*697*t) + sin(2*pi*1209*t))];
                 returnArray = [returnArray (0*sin(2*pi*697*z))];
-            case '2'
+                case '2'
                 returnArray = [returnArray (sin(2*pi*697*t) + sin(2*pi*1336*t))];
                 returnArray = [returnArray (0*sin(2*pi*697*z))];
             case '3'
@@ -37,10 +37,10 @@ if userInput=='y';
                 returnArray = [returnArray (sin(2*pi*852*t)+ sin(2*pi*1477*t))];
                 returnArray = [returnArray (0*sin(2*pi*697*z))];
             case '0'
-                returnArray = [returnArray (sin(2*pi*941*t) + sin(2*pi*1209*t))];
+                returnArray = [returnArray (sin(2*pi*941*t) + sin(2*pi*1336*t))];
                 returnArray = [returnArray (0*sin(2*pi*697*z))];
             case '*'
-                returnArray = [returnArray (sin(2*pi*941*t) + sin(2*pi*1336*t))];
+                returnArray = [returnArray (sin(2*pi*941*t) + sin(2*pi*1209*t))];
                 returnArray = [returnArray (0*sin(2*pi*697*z))];
             case '#'
                 returnArray = [returnArray (sin(2*pi*941*t) + sin(2*pi*1477*t))];
