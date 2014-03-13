@@ -46,7 +46,7 @@ if userInput=='y';
                 returnArray = [returnArray (sin(2*pi*941*t) + sin(2*pi*1477*t))];
                 returnArray = [returnArray (0*sin(2*pi*697*z))];    
             otherwise
-                disp('TODO: Return number + is not a number')
+                disp([number(x) ' is not a number'])
         end
     end
     sound(returnArray);
