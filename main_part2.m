@@ -28,7 +28,7 @@ function decodedNumber = main_part2(ToneGeneratedPart1)
         bk = (2 * cos(w0 * n)/L); % Amplitude
         filters  = [filters; bk];
         [h, w] = freqz(bk, 1, L);
-        plot((w * Fs / (2 * pi)), abs(h));
+        plot((w * Fs / (2 * pi)), abs(h)); %plotter frekvensresponsen og sÃ¸ylen(de 7 toppene)
         hold on
     end
     title('Filter');
@@ -56,7 +56,7 @@ function decodedNumber = main_part2(ToneGeneratedPart1)
     
         %% Summerer frekvensene og finner ut hvilke sum som h?rer til hvilket tall
 =======
-        %% Summerer frekvensene og finner ut hvilke sum som hører til hvilket tall
+        %% Summerer frekvensene og finner ut hvilke sum som hï¿½rer til hvilket tall
 >>>>>>> FETCH_HEAD
         sum = Frekvenser(temp(1)) + Frekvenser(temp(2)); %Henter ut de to dekodede frekvensene fra parten og Summerer de to frekvensene
         %Finner ut hvilken sum som tilh?rer hvilket tall
