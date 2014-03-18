@@ -26,7 +26,6 @@ function decodedNumber = main_part2(ToneGeneratedPart1)
         f0 = Frekvenser(i)/Fs; %Digital frekvens
         w0 = f0 * 2 * pi; %Vinkelfrekvens
         bk = (2 * cos(w0 * n)/L); % Amplitude
-           
         filters  = [filters; bk];
         [h, w] = freqz(bk, 1, L);
         plot((w * Fs / (2 * pi)), abs(h));
@@ -51,10 +50,14 @@ function decodedNumber = main_part2(ToneGeneratedPart1)
                 temp = [temp n]; % Legger til frekvenstallet i listen
             end
         end
+<<<<<<< HEAD
         
     
     
         %% Summerer frekvensene og finner ut hvilke sum som h?rer til hvilket tall
+=======
+        %% Summerer frekvensene og finner ut hvilke sum som hører til hvilket tall
+>>>>>>> FETCH_HEAD
         sum = Frekvenser(temp(1)) + Frekvenser(temp(2)); %Henter ut de to dekodede frekvensene fra parten og Summerer de to frekvensene
         %Finner ut hvilken sum som tilh?rer hvilket tall
         switch sum
