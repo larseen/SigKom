@@ -6,8 +6,8 @@ function decodedNumber = main_part2(ToneGeneratedPart1)
     
     %% Fjerner pause delen i signalet
     
-    toneLenght = Fs*0.2; %Lengden av en tone er samplefrekvens * tid
-    pauseLenght = Fs*0.05; %Lengden av pausen er samplefrekvens * tid
+    toneLenght = Fs*0.2; % Antall samplinger i hver tone
+    pauseLenght = Fs*0.05; % Antall samplinger i pause
     numbersToFilter = round(length(ToneGeneratedPart1)/(toneLenght + pauseLenght)); %Finner ut hvor mange nummer signalet består av
     toFilter = [];
     start = 1;
@@ -23,12 +23,12 @@ function decodedNumber = main_part2(ToneGeneratedPart1)
     n = 0:L-1; 
     filters = [];   
     for i = 1:length(Frekvenser)
-        f0 = Frekvenser(i)/Fs; %Digital frekvens
-        w0 = f0 * 2 * pi; %Vinkelfrekvens
+        f0 = Frekvenser(i)/Fs; % Digital frekvens
+        w0 = f0 * 2 * pi; % Vinkelfrekvens
         bk = (2 * cos(w0 * n)/L); % Amplitude
         filters  = [filters; bk];
         [h, w] = freqz(bk, 1, L);
-        plot((w * Fs / (2 * pi)), abs(h));
+        plot((w * Fs / (2 * pi)), abs(h));  % Plotter filterene
         hold on
     end
     title('Filter');
@@ -37,24 +37,21 @@ function decodedNumber = main_part2(ToneGeneratedPart1)
     
     %% Deler opp signalet til hvert enkelt tall og Dekoder input signalet ved bruk av Båndpassfilterene tidligere laget
     
-    for k = 1:(length(toFilter)/(Fs*0.2))
-        NumberToFilter = toFilter((k-1)*(Fs*0.2)+1:k*(Fs*0.2));
-        threshold = 0.8;
+    for k = 1:(length(toFilter)/(toneLenght))
+        NumberToFilter = toFilter((k-1)*(toneLenght)+1:k*(toneLenght));
+        threshold = 0.85;
         % Siden filteret ikke er perfekt, setter vi grensen på 0.85.
         % Hvis vi får et treff høyere enn 0.85 så antar vi derfor at
         % frekvensen finnes.
         temp = []; %Liste for å lagre frekvensene vi finner.
         for n=1:7
-            y = filter(filters(n, 1:L), 1, NumberToFilter); %Filtrerer vektoren part gjennom filteret
+            y = filter(filters(n, 1:L), 1, NumberToFilter); %Filtrerer vektoren NumberToFilter gjennom filteret
             if(max(y) > threshold) % Hvis amplituden på signalet er høyere enn thresholdet, så registreres det.
                 temp = [temp n]; % Legger til frekvenstallet i listen
             end
         end
-        
-    
-    
         %% Summerer frekvensene og finner ut hvilke sum som hører til hvilket tall
-        sum = Frekvenser(temp(1)) + Frekvenser(temp(2)); %Henter ut de to dekodede frekvensene fra parten og Summerer de to frekvensene
+        sum = Frekvenser(temp(1)) + Frekvenser(temp(2)); %Henter ut de to dekodede frekvensene fra frekvenser og Summerer de to frekvensene
         %Finner ut hvilken sum som tilhører hvilket tall
         switch sum
             case 1906

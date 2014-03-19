@@ -1,6 +1,6 @@
 function returnArray = main_part1()
 T = 0.2; % tid
-Fs = 8000; % Punktprøvingsfrekvens
+Fs = 8000; % Punktprøvingsfrekven
 t = 0:1/Fs:T; % Sample vektor
 z = 0:1/Fs:.05; % Zero Vektor
 returnArray = [];
