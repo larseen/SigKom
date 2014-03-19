@@ -44,13 +44,6 @@ function decodedNumber = main_part2(ToneGeneratedPart1)
         threshold = 0.85;
         % Siden filteret ikke er perfekt, setter vi grensen på 0.85.
         % Hvis vi får et treff høyere enn 0.85 så antar vi derfor at
-
-    for k = 1:(length(toFilter)/(Fs*0.2))
-        NumberToFilter = toFilter((k-1)*(Fs*0.2)+1:k*(Fs*0.2));
-        threshold = 0.8;
-        % Siden filteret ikke er perfekt, setter vi grensen p? 0.85.
-        % Hvis vi f?r et treff h?yere enn 0.85 s? antar vi derfor at
-
         % frekvensen finnes.
         temp = []; %Liste for ? lagre frekvensene vi finner.
         for n=1:7
